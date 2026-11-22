@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by fitted implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="pulse" aria-hidden="true"></span>
+    <div>
+      <h1>Token Radar</h1>
+      <p class="sub">Pre-token protocols, ranked by what their token would be worth — fitted on the live-token peers, tested walk-forward.</p>
+    </div>
+  </div>
+  <div class="asof" id="asof">Snapshot loading…</div>
+</header>
+
+<section class="kpis" id="kpis" aria-label="Coverage and model checks"></section>
+
+<nav class="tabs" aria-label="Views">
+  <button data-tab="board" class="on" type="button">Board</button>
+  <button data-tab="live" type="button">Live tokens</button>
+  <button data-tab="model" type="button">The model</button>
+</nav>
+
+<section id="tab-board" class="tab on">
+  <div class="controls">
+    <label>Search <input id="q" type="search" placeholder="name or slug…" autocomplete="off"></label>
+    <label>Category <select id="f-cat"><option value="">All categories</option></select></label>
+    <label>Chain <select id="f-chain"><option value="">All chains</option></select></label>
+    <label>Verdict <select id="f-verdict"><option value="">All verdicts</option><option>Farm</option><option>Thin</option><option>Skip</option></select></label>
+    <label>Sort <select id="f-sort"><option value="rank">Rank</option><option value="tvl">TVL</option><option value="odds">Launch odds</option><option value="expected">Expected value</option></select></label>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="wrap">
+    <table id="board">
+      <thead><tr>
+        <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th>
+        <th data-k="chains">Chain</th><th data-k="tvl" class="num">TVL</th><th data-k="change" class="num">7d</th>
+        <th data-k="implied" class="num">Implied value</th><th data-k="odds" class="num">Launch odds</th>
+        <th data-k="verdict">Farm verdict</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <p class="note">Implied value is the model's claim for what a token would be worth if issued, from the snapshot's own figures. It is not a prediction that a token is issued, or when. Click a row for the model breakdown and the farm plan.</p>
+  <article id="detail" class="detail" hidden></article>
+</section>
+
+<section id="tab-live" class="tab">
+  <h2>Live tokens — the market's own values</h2>
+  <p class="note">These protocols already trade. Their market caps are the anchors the model is fitted on; they are never mixed into the ranked board.</p>
+  <div class="wrap">
+    <table id="livetab">
+      <thead><tr><th>Protocol</th><th>Category</th><th>Chain</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">mcap / TVL</th><th class="num">7d</th></tr></thead>
+      <tbody id="liverows"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="tab-model" class="tab">
+  <h2>How the radar prices a token</h2>
+  <div id="modelbox"></div>
+</section>
+
+<footer>
+  <p>Built from the sealed DefiLlama protocols snapshot. Every number on this page comes from that snapshot: no live data, no network, no hardcoded protocol names.</p>
+</footer>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
